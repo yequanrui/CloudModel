@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>3D</title>
+  <meta name="description" content="3D">
+  <meta name="keywords" content="3D">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="google-site-verification" content="pLPl8oqL0Adf4p5s9zT-pXnpfF-2TMlOTEjoDl7DpSY" />
+  <meta name="baidu-site-verification" content="code-gZR6EVVpaO" />
+  <script type="module" src="js/model-viewer.min.js"></script>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+  <button title="Bing Dwen Dwen" onclick="getModel('bingdwendwen')">冰墩墩</button>
+  <button title="Shuey Rhon Rhon" onclick="getModel('shueyrhonrhon')">雪容融</button>
+  <button title="Bing Dwen Dwen & Shuey Rhon Rhon" onclick="getModel('bingxue')">冰墩墩+雪容融</button>
+  <button title="Earth" onclick="getModel('earth')">地球</button>
+  <br>
+  <model-viewer src="bingdwendwen.glb" ios-src="bingdwendwen.usdz" id="mv" alt="A 3D model" ar auto-rotate
+    camera-controls>
+  </model-viewer>
+  <script>
+    function getModel(name) {
+      const model = document.getElementById('mv');
+      const modelName = `${location.href}models/${name}`
+      model.setAttribute('src', `${modelName}.glb`);
+      model.setAttribute('ios-src', `${modelName}.usdz`);
+    }
+    getModel('bingdwendwen');
+  </script>
+</body>
+
+</html>
