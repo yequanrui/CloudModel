@@ -1,3 +1,18 @@
-#mv {
-  height: 50vh;
+model-viewer#mv {
+  --poster-color: transparent;
+  background-color: unset;
+  width: auto;
+  height: 60vh;
+}
+
+.models {
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.controls {
+  position: absolute;
+  left: 0;
+  bottom: 0;
 }
