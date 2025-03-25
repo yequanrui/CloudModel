@@ -1,64 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>CloudModel</title>
+    <meta name="description" content="CloudModel" />
+    <meta name="keywords" content="CloudModel" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="google-site-verification" content="pLPl8oqL0Adf4p5s9zT-pXnpfF-2TMlOTEjoDl7DpSY" />
+    <meta name="baidu-site-verification" content="code-gZR6EVVpaO" />
+    <link rel="shortcut icon" href="favicon.ico" />
+    <script type="module" src="js/model-viewer.min.js"></script>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
 
-<head>
-  <meta charset="utf-8">
-  <title>CloudModel</title>
-  <meta name="description" content="CloudModel">
-  <meta name="keywords" content="CloudModel">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="google-site-verification" content="pLPl8oqL0Adf4p5s9zT-pXnpfF-2TMlOTEjoDl7DpSY" />
-  <meta name="baidu-site-verification" content="code-gZR6EVVpaO" />
-  <link rel="shortcut icon" href="favicon.ico">
-  <script type="module" src="js/model-viewer.min.js"></script>
-  <link rel="stylesheet" href="css/style.css">
-</head>
-
-<body>
-  <model-viewer id="mv" alt="A 3D model" poster="" skybox-image="" src="" ios-src="" seamless-poster
-    shadow-intensity="1" loading="auto" reveal="auto" ar ar-modes="webxr scene-viewer quick-look" ar-scale="auto"
-    ar-placement="floor" xr-environment auto-rotate camera-controls>
-    <div class="models">
-      <button title="Bing Dwen Dwen" onclick="getModel('bingdwendwen')">冰墩墩</button>
-      <button title="Shuey Rhon Rhon" onclick="getModel('shueyrhonrhon')">雪容融</button>
-      <button title="Bing Dwen Dwen & Shuey Rhon Rhon" onclick="getModel('bingxue')">冰墩墩&雪容融</button>
-      <button title="Earth" onclick="getModel('earth')">地球</button>
-      <button title="Astronaut" onclick="getModel('astronaut')">宇航员</button>
-    </div>
-    <div class="controls">
-      <button title="Export GLB" onclick="exportScene()">导出为GLB</button>
-      <button title="Export GLTF" onclick="exportScene(false)">导出为GLTF</button>
-    </div>
-  </model-viewer>
-  <script>
-    async function exportScene(binary = true) {
-      let options = {
-        binary: binary,
-        trs: true,
-        onlyVisible: true,
-        maxTextureSize: 256,
-        forcePowerOfTwoTextures: true,
-        includeCustomExtensions: false,
-        embedImages: true,
-      };
-      let modelViewer = document.getElementById('mv');
-      const glTF = await modelViewer.exportScene(options);
-      var file = new File([glTF], binary ? 'model.glb' : 'model.gltf');
-      var link = document.createElement('a');
-      link.download = file.name;
-      link.href = URL.createObjectURL(file);
-      link.click();
-    }
-    function getModel(name) {
-      const model = document.getElementById('mv');
-      const modelName = `${location.origin}${location.pathname}models/${name}`;
-      const srcReg = /[^\s]+.(gltf|glb)$/;
-      model.setAttribute('src', srcReg.test(modelName) ? modelName : `${modelName}.glb`);
-      model.setAttribute('ios-src', modelName.includes('.usdz') ? modelName : `${modelName}.usdz`);
-    }
-    const hash = location.hash.slice(1);
-    getModel(hash || 'bingdwendwen');
-  </script>
-</body>
-
+  <body>
+    <model-viewer
+      id="mv"
+      alt="A 3D model"
+      poster=""
+      skybox-image=""
+      src=""
+      ios-src=""
+      seamless-poster
+      shadow-intensity="1"
+      loading="auto"
+      reveal="auto"
+      ar
+      ar-modes="webxr scene-viewer quick-look"
+      ar-scale="auto"
+      ar-placement="floor"
+      xr-environment
+      auto-rotate
+      camera-controls
+    >
+      <div class="models">
+        <button title="Bing Dwen Dwen" onclick="getModel('bingdwendwen')">冰墩墩</button>
+        <button title="Shuey Rhon Rhon" onclick="getModel('shueyrhonrhon')">雪容融</button>
+        <button title="Bing Dwen Dwen & Shuey Rhon Rhon" onclick="getModel('bingxue')">冰墩墩&雪容融</button>
+        <button title="Earth" onclick="getModel('earth')">地球</button>
+        <button title="Astronaut" onclick="getModel('astronaut')">宇航员</button>
+      </div>
+      <div class="controls">
+        <button title="Export GLB" onclick="exportScene()">导出为GLB</button>
+        <button title="Export GLTF" onclick="exportScene(false)">导出为GLTF</button>
+      </div>
+    </model-viewer>
+    <script>
+      async function exportScene(binary = true) {
+        let options = {
+          binary: binary,
+          trs: true,
+          onlyVisible: true,
+          maxTextureSize: 256,
+          forcePowerOfTwoTextures: true,
+          includeCustomExtensions: false,
+          embedImages: true,
+        };
+        let modelViewer = document.getElementById('mv');
+        const gltf = await modelViewer.exportScene(options);
+        var file = new File([gltf], binary ? 'model.glb' : 'model.gltf');
+        var link = document.createElement('a');
+        link.download = file.name;
+        link.href = URL.createObjectURL(file);
+        link.click();
+      }
+      function getModel(name) {
+        const model = document.getElementById('mv');
+        const modelName = `${location.origin}${location.pathname}models/${name}`;
+        const srcReg = /[^\s]+.(gltf|glb)$/;
+        model.setAttribute('src', srcReg.test(modelName) ? modelName : `${modelName}.glb`);
+        model.setAttribute('ios-src', modelName.includes('.usdz') ? modelName : `${modelName}.usdz`);
+      }
+      const hash = location.hash.slice(1);
+      getModel(hash || 'bingdwendwen');
+    </script>
+  </body>
 </html>
